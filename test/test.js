@@ -1,3 +1,4 @@
+var www = 'http://'+ location.hostname + ':3000';
 
 var queryAPI = function( inUrl, inType, inCallback, inError ) {
 	$.ajax({
@@ -23,7 +24,7 @@ test( "retrieve events", function() {
 		start();
 	};
 	
-	queryAPI( "http://crakow-maxima.codio.io:3000/conferences/events", "GET", fetchSuccess, fetchError );
+	queryAPI( www + "/conferences/events", "GET", fetchSuccess, fetchError );
 });
 
 test( "retrieve past events", function() {
@@ -37,7 +38,7 @@ test( "retrieve past events", function() {
 		start();
 	};
 
-	queryAPI( "http://crakow-maxima.codio.io:3000/conferences/events/past?date=2014-04-18T03:25:23.690Z", "GET", fetchSuccess, fetchError );
+	queryAPI( www + "/conferences/events/past?date=2014-04-18T03:25:23.690Z", "GET", fetchSuccess, fetchError );
 });
 
 test( "retrieve inprogress event on end date", function() {
@@ -48,7 +49,7 @@ test( "retrieve inprogress event on end date", function() {
 		ok(data[0].Id === "FSE2013", "Retrieved the right event.");
 		start();
 	};
-	queryAPI( "http://crakow-maxima.codio.io:3000/conferences/events/inprogress?date="+now.toISOString(), "GET", fetchSuccess, fetchError );
+	queryAPI( www + "/conferences/events/inprogress?date="+now.toISOString(), "GET", fetchSuccess, fetchError );
 });
 
 test( "retrieve inprogress event on start date", function() {
@@ -59,7 +60,7 @@ test( "retrieve inprogress event on start date", function() {
 		ok(data[0].Id === "FSE2013", "Retrieved the right event.");
 		start();
 	};
-	queryAPI( "http://crakow-maxima.codio.io:3000/conferences/events/inprogress?date="+now.toISOString(), "GET", fetchSuccess, fetchError );
+	queryAPI( www + "/conferences/events/inprogress?date="+now.toISOString(), "GET", fetchSuccess, fetchError );
 });
 
 test( "retrieve inprogress event on middle date", function() {
@@ -70,7 +71,7 @@ test( "retrieve inprogress event on middle date", function() {
 		ok(data[0].Id === "FSE2013", "Retrieved the right event.");
 		start();
 	};
-	queryAPI( "http://crakow-maxima.codio.io:3000/conferences/events/inprogress?date="+now.toISOString(), "GET", fetchSuccess, fetchError );
+	queryAPI( www + "/conferences/events/inprogress?date="+now.toISOString(), "GET", fetchSuccess, fetchError );
 });
 
 test( "retrieve upcoming events", function() {
@@ -83,7 +84,7 @@ test( "retrieve upcoming events", function() {
 		}
 		start();
 	};
-	queryAPI( "http://crakow-maxima.codio.io:3000/conferences/events/upcoming?date="+now.toISOString(), "GET", fetchSuccess, fetchError );
+	queryAPI( www + "/conferences/events/upcoming?date="+now.toISOString(), "GET", fetchSuccess, fetchError );
 });
 
 test( "retrieve event ICSE2014", function() {
@@ -102,7 +103,7 @@ test( "retrieve event ICSE2014", function() {
 		start();
 	};
 
-	queryAPI( "http://crakow-maxima.codio.io:3000/conferences/event/ICSE2014", "GET", fetchSuccess, fetchError );
+	queryAPI( www + "/conferences/event/ICSE2014", "GET", fetchSuccess, fetchError );
 });
 
 test( "retrieve event ICSE2014 icon image", function() {
@@ -118,7 +119,7 @@ test( "retrieve event ICSE2014 icon image", function() {
 		start();
 	});
 	
-	$image.attr('src',"http://crakow-maxima.codio.io:3000/conferences/event/ICSE2014/icon");
+	$image.attr('src',www + "/conferences/event/ICSE2014/icon");
 });
 
 test( "retrieve event ICSE2014 image", function() {
@@ -135,7 +136,7 @@ test( "retrieve event ICSE2014 image", function() {
 		start();
 	});
 	
-	$image.attr('src',"http://crakow-maxima.codio.io:3000/conferences/event/ICSE2014/image");
+	$image.attr('src',www + "/conferences/event/ICSE2014/image");
 });
 
 test( "retrieve event ICSE2014 authors", function() {
@@ -153,7 +154,7 @@ test( "retrieve event ICSE2014 authors", function() {
 		start();
 	};
 	
-	queryAPI("http://crakow-maxima.codio.io:3000/conference/ICSE2014/authors", "GET", fetchSuccess, fetchError);
+	queryAPI(www + "/conference/ICSE2014/authors", "GET", fetchSuccess, fetchError);
 });
 
 test( "retrieve event ICSE2014 sessions", function() {
@@ -162,7 +163,7 @@ test( "retrieve event ICSE2014 sessions", function() {
 		ok( data.length > 0, "Conference has sessions");
 		start();
 	};
-	queryAPI("http://crakow-maxima.codio.io:3000/conference/ICSE2014/sessions", "GET", fetchSuccess, fetchError);
+	queryAPI(www + "/conference/ICSE2014/sessions", "GET", fetchSuccess, fetchError);
 });
 
 test( "retrieve event ICSE2014 author by key", function() {
@@ -172,7 +173,7 @@ test( "retrieve event ICSE2014 author by key", function() {
 		start();
 	};
 	
-	queryAPI("http://crakow-maxima.codio.io:3000/conference/ICSE2014/author/Reid%20Holmes%20%40%20University%20of%20Waterloo%2C%20Canada", "GET", fetchSuccess, fetchError);
+	queryAPI(www + "/conference/ICSE2014/author/Reid%20Holmes%20%40%20University%20of%20Waterloo%2C%20Canada", "GET", fetchSuccess, fetchError);
 });
 
 test( "retrieve event ICSE2014 session by key", function() {
@@ -182,7 +183,7 @@ test( "retrieve event ICSE2014 session by key", function() {
 		start();
 	};
 	
-	queryAPI("http://crakow-maxima.codio.io:3000/conference/ICSE2014/session/2014-06-04%2009%3A00%20ICSE%202014%20-%20Main%20Research%20Track", "GET", fetchSuccess, fetchError);
+	queryAPI(www + "/conference/ICSE2014/session/2014-06-04%2009%3A00%20ICSE%202014%20-%20Main%20Research%20Track", "GET", fetchSuccess, fetchError);
 });
 
 test( "retrieve event ICSE2014 item by key", function() {
@@ -193,7 +194,7 @@ test( "retrieve event ICSE2014 item by key", function() {
 		start();
 	};
 	
-	queryAPI("http://crakow-maxima.codio.io:3000/conference/ICSE2014/item/icse14main-p007-p", "GET", fetchSuccess, fetchError);
+	queryAPI(www + "/conference/ICSE2014/item/icse14main-p007-p", "GET", fetchSuccess, fetchError);
 });
 
 test( "retrieve event ICSE2014 items", function() {
@@ -203,7 +204,7 @@ test( "retrieve event ICSE2014 items", function() {
 		
 		start();
 	};
-	queryAPI("http://crakow-maxima.codio.io:3000/conference/ICSE2014/items", "GET", fetchSuccess, fetchError);
+	queryAPI(www + "/conference/ICSE2014/items", "GET", fetchSuccess, fetchError);
 });
 
 test( "retrieve event ICSE2014 revision", function() {
@@ -213,5 +214,5 @@ test( "retrieve event ICSE2014 revision", function() {
 		
 		start();
 	};
-	queryAPI("http://crakow-maxima.codio.io:3000/conference/ICSE2014/revision", "GET", fetchSuccess, fetchError);
+	queryAPI(www + "/conference/ICSE2014/revision", "GET", fetchSuccess, fetchError);
 });
