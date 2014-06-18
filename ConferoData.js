@@ -19,6 +19,15 @@ exports.Confero = (function(){
 		eventIndex.Events[i].momentEndDate.minute(59);
 		eventByKey[eventIndex.Events[i].Id] = eventIndex.Events[i];
 	}
+	eventIndex.Events.sort(function compare(a, b) {
+		if(a.momentEndDate.isAfter(b.momentEndDate)) {return -1;}
+		else if(a.momentEndDate.isBefore(b.momentEndDate)){return 1;}
+		else {
+			if(a.momentStartDate.isAfter(b.momentStartDate)) {return -1;}
+			if(a.momentStartDate.isBefore(b.momentStartDate)) {return 1;}
+			return 0;
+		}
+	});
 
 	return {
 		getEventIndex : function(){
