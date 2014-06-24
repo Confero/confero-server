@@ -97,7 +97,7 @@ app.get('/conferences/event/:id/image', function(req, res) {
     res.status(204);
     res.send(eventId + " not found");
 });
-app.get('/conference/:id/authors', function(req, res) {
+app.get('/conference/:id/people', function(req, res) {
     var conferenceId = req.params.id;
     if(conferenceId) {
         var conference = data.Confero.getConferenceById(conferenceId);
@@ -128,14 +128,14 @@ app.get('/conference/:id/info', function(req, res) {
     if(conferenceId) {
         var conference = data.Confero.getConferenceById(conferenceId);
         if(conference) {
-            var data = {};
+            var dd = {};
             for(var d in conference) {
                 if(conference.hasOwnProperty(d) && d !== "Sessions" && d !== "SessionsByKey" && d !== "Items" && d !== "ItemsByKey" && d !== "People" && d !== "PeopleByKey") {
-                    data[d] = conference[d];
+                    dd[d] = conference[d];
                 }
             }
             res.status(200);
-            res.send(data);
+            res.send(dd);
             return;
         }
     }
@@ -183,11 +183,11 @@ app.get('/conference/:id/items', function(req, res) {
     res.status(404);
     res.send(conferenceId + " not found");
 });
-app.get('/conference/:id/author/:key', function(req, res) {
+app.get('/conference/:id/people/:key', function(req, res) {
     var conferenceId = req.params.id;
     var authorKey = decodeURIComponent(req.params.key);
     if(conferenceId && authorKey) {
-        var author = data.Confero.getAuthorByKey(conferenceId, authorKey);
+        var author = data.Confero.getPersonByKey(conferenceId, authorKey);
         if(author) {
             res.status(200);
             res.send(author);

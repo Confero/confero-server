@@ -139,7 +139,7 @@ test( "retrieve event ICSE2014 image", function() {
 	$image.attr('src',www + "/conferences/event/ICSE2014/image");
 });
 
-test( "retrieve event ICSE2014 authors", function() {
+test( "retrieve event ICSE2014 people", function() {
 	stop();
 	var fetchSuccess = function( data ) {
 		ok( data.length > 0, "Conference has people");
@@ -154,7 +154,7 @@ test( "retrieve event ICSE2014 authors", function() {
 		start();
 	};
 	
-	queryAPI(www + "/conference/ICSE2014/authors", "GET", fetchSuccess, fetchError);
+	queryAPI(www + "/conference/ICSE2014/people", "GET", fetchSuccess, fetchError);
 });
 
 test( "retrieve event ICSE2014 sessions", function() {
@@ -166,14 +166,14 @@ test( "retrieve event ICSE2014 sessions", function() {
 	queryAPI(www + "/conference/ICSE2014/sessions", "GET", fetchSuccess, fetchError);
 });
 
-test( "retrieve event ICSE2014 author by key", function() {
+test( "retrieve event ICSE2014 people by key", function() {
 	stop();
 	var fetchSuccess = function( data ) {
 		ok(data.Name === "Reid Holmes", "Found Reid in People");
 		start();
 	};
 	
-	queryAPI(www + "/conference/ICSE2014/author/Reid%20Holmes%20%40%20University%20of%20Waterloo%2C%20Canada", "GET", fetchSuccess, fetchError);
+	queryAPI(www + "/conference/ICSE2014/people/Reid%20Holmes%20%40%20University%20of%20Waterloo%2C%20Canada", "GET", fetchSuccess, fetchError);
 });
 
 test( "retrieve event ICSE2014 session by key", function() {
