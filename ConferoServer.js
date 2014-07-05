@@ -211,6 +211,20 @@ app.get('/conference/:id/session/:key', function(req, res) {
     res.status(404);
     res.send(conferenceId + " or " + authorKey + "not found");
 });
+app.get('/conference/:id/session', function(req, res) {
+    var conferenceId = req.params.id;
+    var paperKey = req.param('paperkey');
+    if(conferenceId && paperKey) {
+        var session = data.Confero.getSessionByPaperKey(conferenceId, paperKey);
+        if(session) {
+            res.status(200);
+            res.send(session);
+            return;
+        }
+    }
+    res.status(404);
+    res.send(conferenceId + " or " + req + "not found ++>"+paperKey);
+});
 app.get('/conference/:id/item/:key', function(req, res) {
     var conferenceId = req.params.id;
     var itemKey = decodeURIComponent(req.params.key);

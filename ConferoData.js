@@ -54,7 +54,7 @@ exports.Confero = (function() {
             return events;
         },
         getConferenceById: function(id) {
-            var i;
+            var i, j;
             if(!conferenceCache[id]) {
                 var event = this.getEventById(id);
                 conferenceCache[id] = require(__dirname + '/data/conferences/' + event.File);
@@ -81,8 +81,6 @@ exports.Confero = (function() {
                             return 0;
                         }
                     });
-					
-					
                     if(!conferenceCache[id].PeopleByKey) {
                         conferenceCache[id].PeopleByKey = {};
                         for(i = 0; conferenceCache[id].People[i]; i++) {
@@ -91,8 +89,14 @@ exports.Confero = (function() {
                     }
                     if(!conferenceCache[id].SessionsByKey) {
                         conferenceCache[id].SessionsByKey = {};
+                        conferenceCache[id].SessionByPaperKey = {};
                         for(i = 0; conferenceCache[id].Sessions[i]; i++) {
                             conferenceCache[id].SessionsByKey[conferenceCache[id].Sessions[i].Key] = conferenceCache[id].Sessions[i];
+                            if(conferenceCache[id].Sessions[i].Items) {
+                                for(j = 0; conferenceCache[id].Sessions[i].Items[j]; j++) {
+                                    conferenceCache[id].SessionByPaperKey[conferenceCache[id].Sessions[i].Items[j]] = conferenceCache[id].Sessions[i].Key;
+                                }
+                            }
                         }
                     }
                     if(!conferenceCache[id].ItemsByKey) {
@@ -121,6 +125,12 @@ exports.Confero = (function() {
             var conference = this.getConferenceById(conferenceId);
             if(conference) {
                 return conference.ItemsByKey[itemKey];
+            }
+        },
+        getSessionByPaperKey: function(conferenceId, paperKey) {
+            var conference = this.getConferenceById(conferenceId);
+            if(conference) {
+                return this.getSessionByKey(conferenceId, conference.SessionByPaperKey[paperKey]);
             }
         }
     };
