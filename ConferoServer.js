@@ -110,6 +110,34 @@ app.get('/conference/:id/people', function(req, res) {
     res.status(404);
     res.send(conferenceId + " not found");
 });
+app.get('/conference/:id/people/:key/sessions', function(req, res) {
+    var conferenceId = req.params.id;
+    var authorKey = decodeURIComponent(req.params.key);
+    if(conferenceId) {
+        var sessions = data.Confero.getSessionsByPeopleKey(conferenceId, authorKey);
+        if(sessions) {
+            res.status(200);
+            res.send(sessions);
+            return;
+        }
+    }
+    res.status(404);
+    res.send(conferenceId + " not found");
+});
+app.get('/conference/:id/people/:key/items', function(req, res) {
+    var conferenceId = req.params.id;
+    var authorKey = decodeURIComponent(req.params.key);
+    if(conferenceId) {
+        var items = data.Confero.getItemsByPeopleKey(conferenceId, authorKey);
+        if(items) {
+            res.status(200);
+            res.send(items);
+            return;
+        }
+    }
+    res.status(404);
+    res.send(conferenceId + " not found");
+});
 app.get('/conference/:id', function(req, res) {
     var conferenceId = req.params.id;
     if(conferenceId) {
@@ -223,7 +251,7 @@ app.get('/conference/:id/session', function(req, res) {
         }
     }
     res.status(404);
-    res.send(conferenceId + " or " + req + "not found ++>"+paperKey);
+    res.send(conferenceId + " or " + req + "not found ++>" + paperKey);
 });
 app.get('/conference/:id/item/:key', function(req, res) {
     var conferenceId = req.params.id;
@@ -272,11 +300,11 @@ app.get('/conference/:id/item/:key/pdf', function(req, res) {
                     //Work around for error https://github.com/joyent/node/issues/4863
                     //Do nothing 
                 });
-				return;
+                return;
             }
         }
     }
-	res.status(404);
+    res.status(404);
     res.send(conferenceId + " or " + authorKey + "not found");
 });
 var server = app.listen(3000, function() {

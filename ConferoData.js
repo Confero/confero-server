@@ -100,9 +100,17 @@ exports.Confero = (function() {
                         }
                     }
                     if(!conferenceCache[id].ItemsByKey) {
+                        conferenceCache[id].ItemsKeyByPeopleKey = {};
                         conferenceCache[id].ItemsByKey = {};
                         for(i = 0; conferenceCache[id].Items[i]; i++) {
                             conferenceCache[id].ItemsByKey[conferenceCache[id].Items[i].Key] = conferenceCache[id].Items[i];
+                            for(j = 0; conferenceCache[id].Items[i].Authors[j]; j++) {
+                                if(conferenceCache[id].ItemsKeyByPeopleKey[conferenceCache[id].Items[i].Authors[j]]) {
+                                    conferenceCache[id].ItemsKeyByPeopleKey[ conferenceCache[id].Items[i].Authors[j] ].push( conferenceCache[id].Items[i].Key );
+                                } else {
+                                    conferenceCache[id].ItemsKeyByPeopleKey[ conferenceCache[id].Items[i].Authors[j] ] = [ conferenceCache[id].Items[i].Key ];
+                                }
+                            }
                         }
                     }
                 }
@@ -131,6 +139,28 @@ exports.Confero = (function() {
             var conference = this.getConferenceById(conferenceId);
             if(conference) {
                 return this.getSessionByKey(conferenceId, conference.SessionByPaperKey[paperKey]);
+            }
+        },
+        getItemsByPeopleKey: function(conferenceId, peopleKey) {
+            var conference = this.getConferenceById(conferenceId);
+            if(conference) {
+                var itemKeys = conference.ItemsKeyByPeopleKey[peopleKey];
+                var items = [];
+                for(var i = 0; itemKeys[i]; i++) {
+                    items.push(this.getItemByKey(conferenceId, itemKeys[i]));
+                }
+                return items;
+            }
+        },
+        getSessionsByPeopleKey: function(conferenceId, peopleKey) {
+            var conference = this.getConferenceById(conferenceId);
+            if(conference) {
+                var items = this.getItemsByPeopleKey(conferenceId, peopleKey);
+                var sessions = [];
+                for(var i = 0; items[i]; i++) {
+                    sessions.push(this.getSessionByPaperKey(conferenceId, items[i].Key));
+                }
+                return sessions;
             }
         }
     };
