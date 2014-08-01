@@ -66,13 +66,16 @@ app.get('/conferences/event/:id/icon', function(req, res) {
     if(eventId) {
         result = data.Confero.getEventById(eventId);
         if(result) {
-            var img = fs.readFileSync(__dirname + '/data/icon200/' + result.Icon);
-            if(img) {
-                res.writeHead(200, {
-                    'Content-Type': 'image/png'
-                });
-                res.end(img, 'binary');
-                return;
+            var filepath = __dirname + '/data/icon200/' + result.Icon;
+            if(fs.exists(filepath)) {
+                var img = fs.readFileSync(filepath);
+                if(img) {
+                    res.writeHead(200, {
+                        'Content-Type': 'image/png'
+                    });
+                    res.end(img, 'binary');
+                    return;
+                }
             }
         }
     }
