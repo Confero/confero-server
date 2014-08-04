@@ -16,6 +16,8 @@ shasum.update(moment().toISOString());
 var ETag = shasum.digest('hex');
 app.use(express.compress());
 var data = require('./ConferoData.js');
+
+
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'public');
@@ -23,6 +25,8 @@ app.use(function(req, res, next) {
     res.setHeader('ETag', ETag); //Will invalidate browser cache.
     next();
 });
+
+
 app.get('/conferences/events', function(req, res) {
     var eventData = data.Confero.getEventIndex();
     if(eventData) {
@@ -87,17 +91,34 @@ app.get('/conferences/event/:id/image', function(req, res) {
     if(eventId) {
         result = data.Confero.getEventById(eventId);
         if(result) {
-            var img = fs.readFileSync(__dirname + '/data/icon200/' + result.Image);
-            if(img) {
-                res.writeHead(200, {
-                    'Content-Type': 'image/png'
-                });
-                res.end(img, 'binary');
-                return;
-            }
+			var filepath = __dirname + '/data/icon200/' + result.Image;
+            if(fs.exists(filepath)) {
+				var img = fs.readFileSync(filepath);
+				if(img) {
+					res.writeHead(200, {
+						'Content-Type': 'image/png'
+					});
+					res.end(img, 'binary');
+					return;
+				}
+			}
         }
     }
     res.status(204);
+    res.send(eventId + " not found");
+});
+
+app.get('/conferences/event/:id/version', function(req, res) {
+    var eventId = req.params.id;
+    if(eventId) {
+        result = data.Confero.getEventById(eventId);
+        if(result) {
+            res.status(200);
+			res.send({'version': result.Version});
+			return;
+        }
+    }
+    res.status(404);
     res.send(eventId + " not found");
 });
 app.get('/conference/:id/people', function(req, res) {
