@@ -7,12 +7,12 @@
  */
 exports.Confero = (function() {
     var moment = require("moment");
-    var eventIndex = require(__dirname + '/data/EventIndex.json');
+    var eventIndex = require(__dirname + '/data/conf-data/EventIndex.json');
     var eventByKey = {};
     var conferenceCache = {};
     for(var i = 0; eventIndex.Events[i]; i++) {
-        eventIndex.Events[i].momentStartDate = moment(eventIndex.Events[i].StartDate, "MM/DD/YYYY");
-        eventIndex.Events[i].momentEndDate = moment(eventIndex.Events[i].EndDate, "MM/DD/YYYY");
+        eventIndex.Events[i].momentStartDate = moment(eventIndex.Events[i].StartDate, "YYYY-MM-DD");
+        eventIndex.Events[i].momentEndDate = moment(eventIndex.Events[i].EndDate, "YYYY-MM-DD");
         eventIndex.Events[i].momentEndDate.hour(23);
         eventIndex.Events[i].momentEndDate.minute(59);
         eventByKey[eventIndex.Events[i].Id] = eventIndex.Events[i];
@@ -57,7 +57,7 @@ exports.Confero = (function() {
             var i, j;
             if(!conferenceCache[id]) {
                 var event = this.getEventById(id);
-                conferenceCache[id] = require(__dirname + '/data/conferences/' + event.File);
+                conferenceCache[id] = require(__dirname + '/data/conf-data/data/' + event.File);
                 if(conferenceCache[id]) {
                     conferenceCache[id].Version = event.Version;
                     conferenceCache[id].Sessions.sort(function compare(a, b) {

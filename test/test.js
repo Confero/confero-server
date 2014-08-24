@@ -19,7 +19,6 @@ test( "retrieve events", function() {
 	stop();
 	var fetchSuccess = function( data ) {
 		ok( data.DummyCheckSums === "-1393793961,-567785358,-533442047,-1393793961", "DummyCheckSum check" );
-		ok( data.revision === "0", "Revision check" );
 		ok( data.Events.length > 0, "Has multiple events");
 		start();
 	};
@@ -94,8 +93,8 @@ test( "retrieve event ICSE2014", function() {
 		ok( data.Name === "ICSE 2014", "Name check" );
 		ok( data.Version >= 1, "Version is 1 or greater");
 		ok( data.File === "2014ICSE.json", "File check");
-		ok( data.StartDate === "05/31/2014", "Start date check");
-		ok( data.EndDate === "06/07/2014", "End date check");
+		ok( data.StartDate === "2014-05-31", "Start date check");
+		ok( data.EndDate === "2014-06-07", "End date check");
 		ok( data.Description, "Has description");
 		ok( data.Icon === "2014ICSE.png", "icon check");
 		ok( data.Image === "2014ICSE.png", "image check");
@@ -119,7 +118,7 @@ test( "retrieve event ICSE2014 icon image", function() {
 		start();
 	});
 	
-	$image.attr('src',www + "/conferences/event/ICSE2014/icon");
+	$image.attr('src', www + "/conferences/event/ICSE2014/icon");
 });
 
 test( "retrieve event ICSE2014 image", function() {

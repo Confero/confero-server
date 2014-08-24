@@ -70,8 +70,8 @@ app.get('/conferences/event/:id/icon', function(req, res) {
     if(eventId) {
         result = data.Confero.getEventById(eventId);
         if(result) {
-            var filepath = __dirname + '/data/icon200/' + result.Icon;
-            if(fs.exists(filepath)) {
+            var filepath = __dirname + '/data/conf-data/icon200/' + result.Icon;
+            if(fs.existsSync(filepath)) {
                 var img = fs.readFileSync(filepath);
                 if(img) {
                     res.writeHead(200, {
@@ -91,8 +91,8 @@ app.get('/conferences/event/:id/image', function(req, res) {
     if(eventId) {
         result = data.Confero.getEventById(eventId);
         if(result) {
-			var filepath = __dirname + '/data/icon200/' + result.Image;
-            if(fs.exists(filepath)) {
+			var filepath = __dirname + '/data/conf-data/icon200/' + result.Image;
+            if(fs.existsSync(filepath)) {
 				var img = fs.readFileSync(filepath);
 				if(img) {
 					res.writeHead(200, {
@@ -261,7 +261,7 @@ app.get('/conference/:id/session/:key', function(req, res) {
         }
     }
     res.status(404);
-    res.send(conferenceId + " or " + authorKey + "not found");
+    res.send(conferenceId + " or " + sessionKey + "not found");
 });
 app.get('/conference/:id/session', function(req, res) {
     var conferenceId = req.params.id;
