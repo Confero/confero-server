@@ -63,10 +63,18 @@ exports.Confero = (function() {
                     conferenceCache[id].Sessions.sort(function compare(a, b) {
                         var atime = a.Time.split('-');
                         var btime = b.Time.split('-');
-                        var aStartTime = moment(a.Day + ' ' + atime[0], 'YYYY-MM-DD HH:mm');
-                        var bStartTime = moment(b.Day + ' ' + btime[0], 'YYYY-MM-DD HH:mm');
-                        var aEndTime = moment(a.Day + ' ' + atime[1], 'YYYY-MM-DD HH:mm');
-                        var bEndTime = moment(b.Day + ' ' + btime[1], 'YYYY-MM-DD HH:mm');
+                        var aStartTime, bStartTime, aEndTime, bEndTime;
+                        if(atime[0].indexOf('m') > -1) { //old standard
+                            aStartTime = moment(a.Day + ' ' + atime[0].trim(), 'MM-DD-YYYY HH:mm a');
+                            bStartTime = moment(b.Day + ' ' + btime[0].trim(), 'MM-DD-YYYY HH:mm a');
+                            aEndTime = moment(a.Day + ' ' + atime[1].trim(), 'MM-DD-YYYY HH:mm a');
+                            bEndTime = moment(b.Day + ' ' + btime[1].trim(), 'MM-DD-YYYY HH:mm a');
+                        } else { //new standard
+                            aStartTime = moment(a.Day + ' ' + atime[0].trim(), 'YYYY-MM-DD HH:mm');
+                            bEndTime = moment(b.Day + ' ' + btime[1].trim(), 'YYYY-MM-DD HH:mm');
+                            bStartTime = moment(b.Day + ' ' + btime[0].trim(), 'YYYY-MM-DD HH:mm');
+                            aEndTime = moment(a.Day + ' ' + atime[1].trim(), 'YYYY-MM-DD HH:mm');
+                        }
                         if(aStartTime.isAfter(bStartTime)) {
                             return 1;
                         } else if(aStartTime.isBefore(bStartTime)) {
@@ -106,9 +114,9 @@ exports.Confero = (function() {
                             conferenceCache[id].ItemsByKey[conferenceCache[id].Items[i].Key] = conferenceCache[id].Items[i];
                             for(j = 0; conferenceCache[id].Items[i].Authors[j]; j++) {
                                 if(conferenceCache[id].ItemsKeyByPeopleKey[conferenceCache[id].Items[i].Authors[j]]) {
-                                    conferenceCache[id].ItemsKeyByPeopleKey[ conferenceCache[id].Items[i].Authors[j] ].push( conferenceCache[id].Items[i].Key );
+                                    conferenceCache[id].ItemsKeyByPeopleKey[conferenceCache[id].Items[i].Authors[j]].push(conferenceCache[id].Items[i].Key);
                                 } else {
-                                    conferenceCache[id].ItemsKeyByPeopleKey[ conferenceCache[id].Items[i].Authors[j] ] = [ conferenceCache[id].Items[i].Key ];
+                                    conferenceCache[id].ItemsKeyByPeopleKey[conferenceCache[id].Items[i].Authors[j]] = [conferenceCache[id].Items[i].Key];
                                 }
                             }
                         }
