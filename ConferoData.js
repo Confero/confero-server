@@ -63,10 +63,10 @@ exports.Confero = (function() {
                     conferenceCache[id].Sessions.sort(function compare(a, b) {
                         var atime = a.Time.split('-');
                         var btime = b.Time.split('-');
-                        var aStartTime = moment(a.Day + ' ' + atime[0].trim(), 'YYYY-MM-DD HH:mm');
-                        var bStartTime = moment(b.Day + ' ' + btime[0].trim(), 'YYYY-MM-DD HH:mm');
-                        var aEndTime = moment(a.Day + ' ' + atime[1].trim(), 'YYYY-MM-DD HH:mm');
-                        var bEndTime = moment(b.Day + ' ' + btime[1].trim(), 'YYYY-MM-DD HH:mm');
+                        var aStartTime = moment(a.Day + ' ' + atime[0], 'YYYY-MM-DD HH:mm');
+                        var bStartTime = moment(b.Day + ' ' + btime[0], 'YYYY-MM-DD HH:mm');
+                        var aEndTime = moment(a.Day + ' ' + atime[1], 'YYYY-MM-DD HH:mm');
+                        var bEndTime = moment(b.Day + ' ' + btime[1], 'YYYY-MM-DD HH:mm');
                         if(aStartTime.isAfter(bStartTime)) {
                             return 1;
                         } else if(aStartTime.isBefore(bStartTime)) {
