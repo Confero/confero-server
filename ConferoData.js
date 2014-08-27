@@ -67,6 +67,12 @@ exports.Confero = (function() {
                         if(atime[0].indexOf('m') > -1) { //old standard
                             aStartTime = moment(a.Day + ' ' + atime[0].trim(), 'MM-DD-YYYY HH:mm a');
                             bStartTime = moment(b.Day + ' ' + btime[0].trim(), 'MM-DD-YYYY HH:mm a');
+                            if(!atime[1]) {
+                            atime[1] = "11:59 pm";
+                        }
+                        if(!btime[1]) {
+                            btime[1] = "11:59 pm";
+                        }
                             aEndTime = moment(a.Day + ' ' + atime[1].trim(), 'MM-DD-YYYY HH:mm a');
                             bEndTime = moment(b.Day + ' ' + btime[1].trim(), 'MM-DD-YYYY HH:mm a');
                         } else { //new standard
