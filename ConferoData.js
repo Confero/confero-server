@@ -1,9 +1,7 @@
-/**
- * Created with ConferoV3.
- * User: rylan
- * Date: 2014-05-08
- * Time: 01:40 AM
- * To change this template use Tools | Templates.
+/* ConferoData.js
+ * version : 0.0.1
+ * authors : Rylan Cottrell, Reid Holmes
+ * license : GNU GPL
  */
 exports.Confero = (function() {
     var moment = require("moment");

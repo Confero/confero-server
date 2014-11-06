@@ -1,9 +1,7 @@
-/**
- * Created with ConferoV3.
- * User: rylan
- * Date: 2014-03-23
- * Time: 01:46 AM
- * To change this template use Tools | Templates.
+/* ConferoServer.js
+ * version : 0.0.1
+ * authors : Rylan Cottrell, Reid Holmes
+ * license : GNU GPL
  */
 var fs = require('fs'),
     express = require('express'),
@@ -11,10 +9,15 @@ var fs = require('fs'),
     crypto = require('crypto'),
     url = require('url'),
     app = express();
+
 var shasum = crypto.createHash('sha1');
+
 shasum.update(moment().toISOString());
+
 var ETag = shasum.digest('hex');
+
 app.use(express.compress());
+
 var data = require('./ConferoData.js');
 
 
